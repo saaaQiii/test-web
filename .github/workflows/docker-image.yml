@@ -14,7 +14,7 @@ jobs:
       run: ls -ll
     - name: Build the Docker image
       run: |
-        docker build . -t ${{ vars.DOCKER_NAME }}/my-pipeline-test-image
+        docker build . -t ${{ vars.DOCKER_USER }}/my-pipeline-test-image
         docker image ls
 
     - name: Run Docker Container
