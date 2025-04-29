@@ -13,12 +13,12 @@ jobs:
         run: ls -ll
       - name: Build the Docker image
         run: |
-         docker build . -t ${{ vars.DOCKER_USER }}/my-pipeline-test-image
+         docker build . -t ${{ vars.DOCKER_USER }}/MY-DOCKER-PIPELINE
          docker image ls
 
       - name: Run Docker Container
         run: |
-          docker container run -d -p 3000:3000 ${{ vars.DOCKER_USER }}/my-pipeline-test-image
+          docker container run -d -p 3000:3000 ${{ vars.DOCKER_USER }}/MY-DOCKER-PIPELINE
           docker container ls
 
       - name: Testing Container
@@ -32,4 +32,4 @@ jobs:
       - name: Pushing Image to DockerHub
         run: |
          echo "${{ secrets.DOCKER_PAT }}" | docker login -u ${{ vars.DOCKER_USER }} --password-stdin
-         docker push ${{ vars.DOCKER_USER }}/my-pipeline-test-image
+         docker push ${{ vars.DOCKER_USER }}/MY-DOCKER-PIPELINE
