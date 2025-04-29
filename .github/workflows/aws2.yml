@@ -16,7 +16,7 @@ jobs:
      # - name: Run the app
      #  run: pm2 start npm --name "my-node-app" -- start -- -p 3000
      
-      - name: Build the Docker image
+#      - name: Build the Docker image
         run: |
          docker build . -t ${{ vars.DOCKER_USER }}/my-node-app
          docker image ls
