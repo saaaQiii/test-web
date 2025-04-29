@@ -1,0 +1,41 @@
+name: MY-NODE-APP PIPELINE
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  Setup-and-deploy:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      
+     # - name: Installing Dependencies
+      #  run: npm install
+
+     # - name: Run the app
+     #  run: pm2 start npm --name "my-node-app" -- start -- -p 3000
+     
+      - name: Build the Docker image
+        run: |
+         docker build . -t ${{ vars.DOCKER_USER }}/my-node-app
+         docker image ls
+
+      - name: Run Docker Container
+        run: |
+         docker container run -d -p 3000:3000 ${{ vars.DOCKER_USER }}/my-node-app
+         docker container ls
+      - name: Testing Container
+        run: |
+         sleep 10
+         echo "Testing the Container"
+         curl http://localhost:3000 >> response.txt
+         echo "==========================="
+         grep "MY TODO LIST" response.txt
+
+      - name: Pushing Image to DockerHub
+        run: |
+         echo "${{ secrets.DOCKER_PAT }}" | docker login -u ${{ vars.DOCKER_USER }} --password-stdin
+         docker push ${{ vars.DOCKER_USER }}/my-node-app
+
+         
