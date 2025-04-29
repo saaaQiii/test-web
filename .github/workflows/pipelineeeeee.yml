@@ -1,4 +1,4 @@
-name: MY-NODE-APP PIPELINE
+name: MY-NODE-APP-PIPELINE
 
 on:
   push:
@@ -18,9 +18,9 @@ jobs:
        
       - name: Building the Docker image
         run: |
-         sudo docker build . -t MY-NODE-APP PIPELINE
+         sudo docker build . -t MY-NODE-APP-PIPELINE
          sudo docker image ls
 
       - name: running the Docker image
         run: |
-         sudo docker container run -dit -p 3000:3000 MY-NODE-APP PIPELINE /bin/bash
+         sudo docker container run -dit -p 3000:3000 MY-NODE-APP-PIPELINE /bin/bash
